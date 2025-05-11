@@ -1,0 +1,67 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 14,
+    "fields": {
+      "name": "Угловая шлифовальная машина 125мм ",
+      "description": " Работает от сети 220В, посадочный диаметр диска 125 мм, мощность 1500 Вт",
+      "photo": "",
+      "category": 1,
+      "price": "13500.00",
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 15,
+    "fields": {
+      "name": "Строительный  фен ",
+      "description": " Работает от сети 220В, мощность 600 Вт, диапазон температур 200-600 град., наличие ЖК экрана ",
+      "photo": "",
+      "category": 1,
+      "price": "8500.00",
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 16,
+    "fields": {
+      "name": "Пневматический гайковерт 1/2 ",
+      "description": " Привод 1/2, крутящий момент = 720 Нм., рабочее давление = 6 атм. ",
+      "photo": "",
+      "category": 2,
+      "price": "9000.00",
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 17,
+    "fields": {
+      "name": "Прямая шлифовальная машина",
+      "description": "Зажимная цанга 6мм, кол-во оборотов = 25000 об/мин., рабочее давление = 6 атм.",
+      "photo": "",
+      "category": 2,
+      "price": "5000.00",
+      "created_at": null,
+      "updated_at": "2025-05-11T08:57:25.291Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 18,
+    "fields": {
+      "name": "Пневматическая угловая шлифовальная машина 125 мм ",
+      "description": " Посадочный диаметр круга = 125мм, мощность = 900 Вт, рабочее давление = 6 атм. ",
+      "photo": "",
+      "category": 2,
+      "price": "11900.00",
+      "created_at": null,
+      "updated_at": null
+    }
+  }
+]
