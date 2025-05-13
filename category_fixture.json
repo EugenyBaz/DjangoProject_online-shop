@@ -1,0 +1,18 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Электроинструменты",
+      "description": "Инструмент используемый  от сети 220V"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Пневмоинструменты",
+      "description": "Инструмент который работает от сжатого воздуха"
+    }
+  }
+]
