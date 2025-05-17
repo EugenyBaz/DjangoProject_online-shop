@@ -1,0 +1,26 @@
+
+{% extends 'home.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row text-center">
+        {% for product in products %}
+        <div class="col">
+            <div class="card" style="width: 20rem;">
+                <img src="Lake.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text h6">{{ product.name }}</p>
+                    <p class="card-text ">{{ product.description | truncatechars:100 }}</p>
+                </div>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
