@@ -1,0 +1,8 @@
+{% extends 'catalog/home.html' %}
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<p>Опубликовано: {{ post.created_at }}</p>
+<a class="p-2 btn btn-outline-primary" href="{% url 'blog:post_update' post.id %}">Редактировать</a>
+<a class="p-2 btn btn-outline-primary" href="{% url 'blog:post_delete' post.id %}">Удалить</a>
+{% endblock %}
