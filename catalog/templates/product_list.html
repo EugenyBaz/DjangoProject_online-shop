@@ -1,0 +1,42 @@
+
+{% extends 'home.html' %}
+{% load my_tags%}
+{% block content %}
+
+<head>
+    <style>
+        .card-body {
+            position: relative; /* Устанавливаем родительский элемент как относительный */
+        }
+
+        .card-body .btn {
+            position: absolute; /* Фиксируем кнопку относительно родительского элемента */
+            bottom: 10px; /* Отступ от нижнего края */
+            left: 50%; /* Центрирование по горизонтали */
+            transform: translateX(-50%); /* Корректировка для точного центрирования */
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row text-center">
+        {% for product in products %}
+        <div class="col">
+            <div class="card" style = "width: 18rem; height: 28rem;">
+                <img src="{{product.photo | media_filter}}" class="card-img-center" style="height: 250px; object-fit: cover;" alt="{{ product.name }}">
+                <div class="card-body">
+                    <p class="card-text h6">{{ product.name }}</p>
+                    <p class="card-text ">{{ product.description | truncatechars:100 }}</p>
+                </div>
+                <div class="card-body">
+<!--                    <a href="{% url 'catalog:product_detail' product.pk %}" class="card-link">Подробнее</a>-->
+                    <a class="p-2 btn btn-outline-primary mb-0 card-link" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
