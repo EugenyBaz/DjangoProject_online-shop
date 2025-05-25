@@ -1,8 +1,6 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from blog.models import Post
-from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 
@@ -37,7 +35,9 @@ class PostCreateView(CreateView):
 class PostUpdateView(UpdateView):
     model = Post
     fields = ("title", "content", "preview_image")
-    success_url = reverse_lazy("blog:post_list")
+
+    def get_success_url(self):
+        return reverse_lazy("blog:post_detail", kwargs = { 'pk': self.object.pk,})
 
 
 class PostDeleteView(DeleteView):
