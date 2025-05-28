@@ -1,5 +1,5 @@
 
-{% extends 'home.html' %}
+{% extends 'catalog/home.html' %}
 {% load my_tags%}
 {% block content %}
 
@@ -20,22 +20,21 @@
 
 <div class="container">
     <div class="row text-center">
-        {% for product in products %}
         <div class="col">
-            <div class="card" style = "width: 18rem; height: 28rem;">
+            <div class="card" style = "width: 18rem; height: 30rem;">
                 <img src="{{product.photo | media_filter}}" class="card-img-center" style="height: 250px; object-fit: cover;" alt="{{ product.name }}">
                 <div class="card-body">
-                    <p class="card-text h6">{{ product.name }}</p>
-                    <p class="card-text ">{{ product.description | truncatechars:100 }}</p>
-                </div>
-                <div class="card-body">
-<!--                    <a href="{% url 'catalog:product_detail' product.pk %}" class="card-link">Подробнее</a>-->
-                    <a class="p-2 btn btn-outline-primary mb-0 card-link" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
+                    <p class="card-text h6">{{ object.name }}</p>
+                    <p class="card-text ">{{ object.description | truncatechars:100 }}</p>
+                    <p class="card-text h6" style ="margin-bottom: -1rem;"> Цена: {{ object.price }} руб.</p>
 
+                </div>
+                <div class="ms-3 mb-2">
+                    <a class="p-2 btn btn-outline-primary mt-0" href="#">Купить</a>
+                    <a class="p-2 btn btn-outline-primary" href="/">Назад</a>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 
