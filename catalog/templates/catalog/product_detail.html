@@ -21,8 +21,8 @@
 <div class="container">
     <div class="row text-center">
         <div class="col">
-            <div class="card" style = "width: 18rem; height: 30rem;">
-                <img src="{{product.photo | media_filter}}" class="card-img-center" style="height: 250px; object-fit: cover;" alt="{{ product.name }}">
+            <div class="card" style = "width: 25rem; height: 33rem;">
+                <img src="{{product.photo | media_filter}}" class="card-img-center" style="height: 330px; object-fit: contain;" alt="{{ product.name }}">
                 <div class="card-body">
                     <p class="card-text h6">{{ object.name }}</p>
                     <p class="card-text ">{{ object.description | truncatechars:100 }}</p>
@@ -31,6 +31,8 @@
                 </div>
                 <div class="ms-3 mb-2">
                     <a class="p-2 btn btn-outline-primary mt-0" href="#">Купить</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_update' product.id %}">Редактировать</a>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_delete' product.id %}">Удалить</a>
                     <a class="p-2 btn btn-outline-primary" href="/">Назад</a>
                 </div>
             </div>
