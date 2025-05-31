@@ -5,17 +5,18 @@ from catalog.constants import FORBIDDEN_WORDS
 
 forbidden_list = FORBIDDEN_WORDS
 
+
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, fild in self.fields.items():
             if isinstance(fild, BooleanField):
-                fild.widget.attrs['class'] = "form-check-input"
+                fild.widget.attrs["class"] = "form-check-input"
             else:
-                fild.widget.attrs['class'] = "form-control"
+                fild.widget.attrs["class"] = "form-control"
 
 
-class ProductForm(StyleFormMixin,ModelForm):
+class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
@@ -23,32 +24,31 @@ class ProductForm(StyleFormMixin,ModelForm):
     def clean_name(self):
 
         cleaned_data = super().clean()
-        name = cleaned_data.get('name').strip().lower()
+        name = cleaned_data.get("name").strip().lower()
         words_in_name = name.split()
 
         for word in words_in_name:
             if word in FORBIDDEN_WORDS:
-                raise ValidationError (f"Введено  недопустимое  слово '{word}'.")
-        return cleaned_data.get('name')
+                raise ValidationError(f"Введено  недопустимое  слово '{word}'.")
+        return cleaned_data.get("name")
 
     def clean_description(self):
 
         cleaned_data = super().clean()
-        description = cleaned_data.get('description').strip().lower()
+        description = cleaned_data.get("description").strip().lower()
         words_in_description = description.split()
 
         for word in words_in_description:
             if word in forbidden_list:
-                raise ValidationError (f"Введено  недопустимое  слово '{word}'.")
-        return cleaned_data.get('description')
+                raise ValidationError(f"Введено  недопустимое  слово '{word}'.")
+        return cleaned_data.get("description")
 
     def clean_price(self):
 
         cleaned_data = super().clean()
-        data = cleaned_data.get('price')
+        data = cleaned_data.get("price")
         price = float(data)
 
         if price < 0:
-            raise ValidationError (f"Цена не может быть отрицательной.")
+            raise ValidationError(f"Цена не может быть отрицательной.")
         return price
-

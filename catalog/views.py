@@ -23,10 +23,8 @@ class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
 
-
     def get_success_url(self):
         return reverse_lazy("catalog:product_detail", kwargs={"pk": self.object.pk})
-
 
 
 class ProductUpdateView(UpdateView):
@@ -34,7 +32,12 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
 
     def get_success_url(self):
-        return reverse_lazy("catalog:product_detail", kwargs = { 'pk': self.object.pk,})
+        return reverse_lazy(
+            "catalog:product_detail",
+            kwargs={
+                "pk": self.object.pk,
+            },
+        )
 
 
 class ProductDeleteView(DeleteView):
