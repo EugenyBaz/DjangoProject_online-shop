@@ -1,12 +1,21 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, BooleanField
 from django.core.exceptions import ValidationError
 from catalog.models import Product
 from catalog.constants import FORBIDDEN_WORDS
 
 forbidden_list = FORBIDDEN_WORDS
 
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, fild in self.fields.items():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs['class'] = "form-check-input"
+            else:
+                fild.widget.attrs['class'] = "form-control"
 
-class ProductForm(ModelForm):
+
+class ProductForm(StyleFormMixin,ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
@@ -20,7 +29,7 @@ class ProductForm(ModelForm):
         for word in words_in_name:
             if word in FORBIDDEN_WORDS:
                 raise ValidationError (f"Введено  недопустимое  слово '{word}'.")
-        return name
+        return cleaned_data.get('name')
 
     def clean_description(self):
 
@@ -31,7 +40,7 @@ class ProductForm(ModelForm):
         for word in words_in_description:
             if word in forbidden_list:
                 raise ValidationError (f"Введено  недопустимое  слово '{word}'.")
-        return description
+        return cleaned_data.get('description')
 
     def clean_price(self):
 
