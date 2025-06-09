@@ -12,6 +12,7 @@ class Product(models.Model):
         "Category", on_delete=models.CASCADE, verbose_name="Категория", null=True, related_name="products"
     )
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за покупку")
+    publication = models.BooleanField(default = False, verbose_name= "Опубликовано?")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания", null=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата последнего изменения", null=True)
     owner = models.ForeignKey(User, verbose_name= "Владелец", help_text= "Укажите владельца продукта", blank= True, null= True, on_delete= models.SET_NULL)
@@ -20,6 +21,9 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "category"]
+        permissions = [
+            ('can_unpublish_product' , 'Can unpublish product'),
+        ]
 
     def __str__(self):
         return self.name
