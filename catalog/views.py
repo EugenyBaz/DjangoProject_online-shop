@@ -24,6 +24,13 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
 
+    def form_valid(self, form):
+        product = form.save()
+        user = self.request.user
+        product.owner = user
+        product.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy("catalog:product_detail", kwargs={"pk": self.object.pk})
 
