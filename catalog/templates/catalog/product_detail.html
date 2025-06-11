@@ -31,8 +31,12 @@
                 </div>
                 <div class="ms-3 mb-2">
                     <a class="p-2 btn btn-outline-primary mt-0" href="#">Купить</a>
+                    {% if request.user == product.owner %}
                     <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_update' product.id %}">Редактировать</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_delete' product.id %}">Удалить</a>
+                    {% endif %}
+                    {% if request.user == product.owner or perms.catalog.can_delete_any_product %}
+                        <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_delete' product.id %}">Удалить</a>
+                    {% endif %}
                     <a class="p-2 btn btn-outline-primary" href="/">Назад</a>
                 </div>
             </div>
