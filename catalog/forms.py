@@ -21,6 +21,14 @@ class ProductForm(StyleFormMixin, ModelForm):
         model = Product
         fields = "__all__"
 
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        instance = kwargs.get("instance")
+
+        if instance is not None and not (user.has_perm("catalog.can_unpublish_product") or instance.owner == user):
+            del self.fields["publication"]
+
     def clean_name(self):
 
         cleaned_data = super().clean()
