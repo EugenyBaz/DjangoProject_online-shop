@@ -1,13 +1,15 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
+from django.core.cache import cache
 from catalog.forms import ProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseForbidden
+
+from catalog.service import get_products_by_category
 
 
 class ProductListView(ListView):
@@ -86,3 +88,30 @@ class UnpublishProductView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("catalog:product_detail", kwargs={"pk": self.object.pk})
+
+
+class ProductByCategoryView(ListView):
+    model = Product
+    template_name = "catalog/products_by_category.html"  # отдельный шаблон для вывода товаров по категориям
+
+    def get_queryset(self):
+        category_id = self.kwargs.get("category_id")
+        return get_products_by_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get("category_id")
+        context["current_category"] = Category.objects.get(pk=category_id)
+        return context
+
+
+class CachedListView(ListView):
+    model = Product
+    template_name = "product_list.html"
+
+    def get_queryset(self):
+        queryset = cache.get("cached_product_list")
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set("cached_product_list", queryset, 60 * 15)  # Кешируем данные на 15 минут
+        return queryset
